@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<enterprise xmlns="http://imsglobal.org/IMS_EPv1p1">
+   <properties>
+      <datasource>MARINER_SIS</datasource>
+      <datetime>2018-01-03</datetime>
+   </properties>
+   <person>
+      <sourcedid>
+         <source>MARINER_SIS</source>
+         <id>73387</id>
+      </sourcedid>
+
+      <userid>lperez</userid>
+      <name>
+         <fn>Lisette Perez</fn>
+         <n>
+            <family>Perez</family>
+            <given>Lisette</given>
+         </n>
+      </name>
+      <email>lperez@irsc.edu</email>
+      <datasource>MARINER_SIS</datasource>
+      <extension>
+        <ns0:x_bb_replacementkey xmlns:ns0="http://www.irsc.edu">901353</ns0:x_bb_replacementkey>
+        <ns1:transactionType xmlns:ns1="http://www.irsc.edu">INSTR</ns1:transactionType>
+      </extension>
+   </person>
+</enterprise>

@@ -1,0 +1,2 @@
+external_course_key|external_person_key|role|data_source_key
+LOR-CC-mbechtel|79070|VCF|ADMINTOOL

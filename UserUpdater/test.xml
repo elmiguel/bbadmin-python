@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<enterprise xmlns="http://imsglobal.org/IMS_EPv1p1">
+   <properties>
+      <datasource>MARINER_SIS</datasource>
+      <datetime>2017-02-25</datetime>
+   </properties>
+
+    <person>
+        <sourcedid>
+            <source>MARINER_SIS</source>
+            <id>a12345678</id>
+        </sourcedid>
+        <userid>A12345678</userid>
+        <name>
+            <fn>Ant Bug</fn>
+            <n>
+                <family>Bug</family>
+                <given>Ant</given>
+            </n>
+        </name>
+        <email>a12345678@mail.col.edu</email>
+        <datasource>MARINER_SIS</datasource>
+        <extension>
+            <ns0:WEBCREDENTIALS xmlns:ns0="http://www.webct.com/IMS">{md5}dd4b21e9ef71e1291183a46b913ae6f2</ns0:WEBCREDENTIALS>
+            <ns1:transactionType xmlns:ns1="http://www.irsc.edu">STDNT</ns1:transactionType>
+            <ns2:studentId xmlns:ns2="http://www.irsc.edu">(99)-A12345678</ns2:studentId>
+        </extension>
+    </person>
+</enterprise>

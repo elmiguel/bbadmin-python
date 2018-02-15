@@ -1,0 +1,2 @@
+external_course_key|course_id|course_name|data_source_key|template_course_key
+CM-ISM3321-ckemp|CM-ISM3321-ckemp|ISM3321 Security Essentials - ckemp|CM-20182|VC-ISM3321

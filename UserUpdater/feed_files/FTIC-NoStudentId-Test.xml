@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<enterprise xmlns="http://imsglobal.org/IMS_EPv1p1">;
+   <properties>
+      <datasource>MARINER_SIS</datasource>
+      <datetime>2017-01-04</datetime>
+   </properties>
+   <person>
+      <sourcedid>
+         <source>MARINER_SIS</source>
+         <id>C17000050</id>
+      </sourcedid>
+      <userid>C17000050</userid>
+      <name>
+         <fn>Christina Kelley</fn>
+         <n>
+            <family>Kelley</family>
+            <given>Christina</given>
+         </n>
+      </name>
+      <email>no_email@here.where</email>
+      <datasource>MARINER_SIS</datasource>
+      <extension>
+         <ns0:WEBCREDENTIALS xmlns:ns0="http://www.webct.com/IMS">{md5}354A4B4524A1DF3E84420C695A49E5F0</ns0:WEBCREDENTIALS>;
+         <ns1:transactionType xmlns:ns1="http://www.irsc.edu">STDNT</ns1:transactionType>;
+         <ns2:studentId xmlns:ns2="http://www.irsc.edu">(36PGPL)-C17000050</ns2:studentId>;
+      </extension>
+   </person>
+   <membership>
+      <sourcedid>
+         <source>MARINER_SIS</source>
+         <id>PHY2053-222777</id>
+      </sourcedid>
+      <member>
+         <sourcedid>
+            <source>MARINER_SIS</source>
+            <id>C17000050</id>
+         </sourcedid>
+         <idtype>1</idtype>
+         <role recstatus="1" roletype="01">
+            <status>1</status>
+            <userid>C17000050</userid>
+            <email>no_email@here.where</email>
+            <datasource>MARINER_SIS</datasource>
+         </role>
+      </member>
+   </membership>
+</enterprise>

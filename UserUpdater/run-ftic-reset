@@ -1,0 +1,12 @@
+#!/bin/bash
+echo "Running FTIC StudentId Reset..."
+/usr/local/bin/python3.5 ftic-student-studentid-reset.py
+# echo "FTIC-Student-StudentId-Update-Feed-RESET.xml created!"
+echo "Sending feed file to Blackboard..."
+curl -k -w %{http_code} -H "Content-Type:text/xml" -u '109ba5f9-c792-47bb-8933-7be1869a3e8d:R!verN@T3209!#' --data-binary @FTIC-Student-StudentId-Update-Feed-RESET.xml https://irsc.blackboard.com/webapps/bb-data-integration-ims-xml-BBLEARN/endpoint
+# curl -v -k -w %{http_code} -H "Content-Type:text/xml" -u '613fac96-7f34-419d-b237-7be48e0b4c61:R!verN@T3209!#' --data-binary @FTIC-Student-StudentId-Update-Feed-RESET.xml https://irscstaging.blackboard.com/webapps/bb-data-integration-ims-xml-BBLEARN/endpoint
+echo " Feed file sent."
+echo "Job Complete!"
+
+
+

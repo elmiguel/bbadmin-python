@@ -1,0 +1,2 @@
+external_course_key|course_id|course_name|data_source_key|template_course_key
+DEV-SPC1017-mbrooks|DEV-SPC1017-mbrooks|Development - SPC1017 - mbrooks|DEV_Shells|IRSC-DEVSHELL-TEMPLATE
