@@ -1,0 +1,77 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+hr {
+    border: .069rem solid;
+    opacity: .5;
+}
+
+.hidden{
+    display: none;
+}
+
+.space-right{
+    margin-right: 10px;
+}
+
+input[type="text"]:disabled, input[type="text"][readonly="readonly"], input[type="password"]:disabled,
+input[type="password"][readonly="readonly"], input[type="email"]:disabled, input[type="email"][readonly="readonly"],
+input[type="url"]:disabled, input[type="url"][readonly="readonly"], input[type="time"]:disabled,
+input[type="time"][readonly="readonly"], input[type="date"]:disabled, input[type="date"][readonly="readonly"],
+input[type="datetime-local"]:disabled, input[type="datetime-local"][readonly="readonly"], input[type="tel"]:disabled,
+input[type="tel"][readonly="readonly"], input[type="number"]:disabled, input[type="number"][readonly="readonly"],
+input[type="search"]:disabled, input[type="search"][readonly="readonly"], textarea.materialize-textarea:disabled,
+textarea.materialize-textarea[readonly="readonly"] {
+    color: rgba(0, 0, 0, 0.55);
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.55);
+}
+
+.text-grey-d4 {
+    color: #212121;
+}
+
+.cb-blue[type="checkbox"]:checked + .cb-blue:before {
+    top: -4px;
+    left: -5px;
+    width: 12px;
+    height: 22px;
+    border-top: 2px solid transparent;
+    border-left: 2px solid transparent;
+    border-right: 2px solid #2962ff ; /* You need to change the colour here */
+    border-bottom: 2px solid #2962ff ;
+    -webkit-transform: rotate(40deg);
+    transform: rotate(40deg);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform-origin: 100% 100%;
+    transform-origin: 100% 100%;
+
+}
+
+.fixed [type="checkbox"] + label, .fixed [type="radio"] + label{
+    pointer-events: auto;
+}
+
+.toast {
+    top: 0;
+    opacity: 1;
+    min-width: 300px;
+    padding: 1em;
+}
+.toast .container {
+    position: relative;
+    min-height: 100px;
+    /* background-color: red; */
+    width: 100%;
+}
+.toast .container .toast-action {
+    position: absolute;
+    right: 1em;
+}

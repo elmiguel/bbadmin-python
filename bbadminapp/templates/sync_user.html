@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+{% block page_title %}Bb Admin Tool{% endblock %}
+{% block html_head_includes %}
+{% endblock %}
+{% block page_content %}
+    <h2 class="header text-grey-d4">Sync User to Blackboard</h2>
+    <div class="row">
+        <form class="col s12">
+            
+            <div class="row">
+                <div class="col s6">
+                    <div class="input-field col s4">
+                        <input id="pid" placeholder="pid" type="text" class="validate">
+                        <label for="pid">PID</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input id="username" placeholder="username" type="text" class="validate">
+                        <label for="username">Username</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input id="firstname" placeholder="firstname" type="text" class="validate">
+                        <label for="firstname">First Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="lastname" placeholder="lastname" type="text" class="validate">
+                        <label for="lastname">Last Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="email" placeholder="email" type="email" class="validate">
+                        <label for="email">Email</label>
+                    </div>    
+                </div>
+
+                <div class="col s6">
+                    <div class="input-field col s12">
+                        <input id="institution_role" placeholder="institution_role" type="text" class="validate">
+                        <label for="institution_role">Institution Role</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="system_role" placeholder="system_role" type="text" class="validate">
+                        <label for="system_role">System Role</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s6">
+                    <div class="input-field col s12">
+                        <input disabled id="description" placeholder="description" type="text">
+                        <label for="description">Description</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input disabled id="distinguishedName" placeholder="distinguishedName" type="text" class="materialize-textarea">
+                        <label for="distinguishedName">Distinguished Name</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input disabled id="memberOf" placeholder="memberOf" type="text" class="materialize-textarea">
+                        <label for="memberOf">Member Of</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input disabled id="whenCreated" placeholder="whenCreated" type="text" >
+                        <label for="whenCreated">When Created</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input disabled id="whenChanged" placeholder="whenChanged" type="text">
+                        <label for="whenChanged">When Changed</label>
+                    </div>
+
+                    <div class="input-field col s6">
+                        <input disabled id="uSNCreated" placeholder="uSNCreated" type="text">
+                        <label for="uSNCreated">uSN Created</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input disabled id="uSNChanged" placeholder="uSNChanged" type="text">
+                        <label for="uSNChanged">uSN Changed</label>
+                    </div>
+
+                    <div class="input-field col s6">
+                        <input id="badPwdCount" disabled placeholder="badPwdCount" type="number">
+                        <label for="badPwdCount">Bad Password Count</label>
+                    </div>
+
+                </div>
+
+                <div class="col s6">
+                    <div class="switch">
+                        <label>
+                            No
+                            <input type="checkbox"id="enroll-org-workday" checked="checked" />
+                            <span class="lever"></span>
+                            Yes
+                        </label>
+                        &nbsp;Workday
+                    </div>                  
+                    <br>
+
+                    <div class="switch">
+                        <label>
+                            No
+                            <input type="checkbox" class="filled-in" id="enroll-org-tech-training" checked="checked" />
+                            <span class="lever"></span>
+                            Yes
+                        </label>
+                        &nbsp;Technology Training
+                    </div>                      
+                    <br>
+
+                    <div class="switch">
+                        <label>
+                            No
+                        <input type="checkbox" class="filled-in" id="enroll-course-bb-essentials" checked="checked" />
+                            <span class="lever"></span>
+                            Yes
+                        </label>
+                        &nbsp;Blackboard Essentials
+                    </div>                      
+                    <br>
+
+                    <div class="switch">
+                        <label>
+                            No
+                        <input type="checkbox" class="filled-in" id="create-course-bb-grade-center" checked="checked" />
+                            <span class="lever"></span>
+                            Yes
+                        </label>
+                        &nbsp;Create/Enroll Practice Grade Center
+                    </div>                     
+                    <br>
+
+                    <div class="switch">
+                        <label>
+                            No
+                            <input type="checkbox" class="filled-in" id="create-course-bb-training" checked="checked" />
+                            <span class="lever"></span>
+                            Yes
+                        </label>
+                        &nbsp;Create/Enroll Training Course
+                    </div>                      
+                    <br>   
+
+                    <div class="switch">
+                        <label>
+                            No
+                            <input type="checkbox" checked="checked" class="filled-in" id="alert-success"/>
+                            <span class="lever"></span>
+                            Yes
+                        </label>
+                        &nbsp;Show Tracking Results
+                    </div>                      
+                    <br>
+
+                    <div class="input-field">
+                        <a id="load_ldap_user" class="btn waves-effect waves-light blue accent-4">Load
+                            <i class="material-icons right">swap_vertical_circle</i>
+                        </a>
+                    </div>
+
+                    <div class="input-field">
+                        <a id="sync_ldap_user" class="btn waves-effect waves-light blue accent-4">Sync User
+                            <i class="material-icons right">send</i>
+                        </a>
+                    </div>              
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- Modal Structures -->
+    <div id="error" class="modal">
+        <div class="modal-content">
+            <h4>Error:</h4>
+            <p></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+        </div>
+    </div>
+
+    <div id="success" class="modal">
+        <div class="modal-content">
+            <h4>Successful Upload:</h4>
+            <p></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+        </div>
+    </div>
+
+{% endblock %}
+{% block js_includes %}
+    <script src="../static/js/load_ldap_user.js"></script>
+    <script src="../static/js/sync_ldap_user.js"></script>
+{% endblock %}
+{% block jquery_doc_ready_includes %}
+    $('#load_ldap_user').load_ldap_user({
+        url: '/ldap/user/',
+        primary_validator: '#username',
+        mappings: {
+            employeeID: '#pid',
+            cn: '#username',
+            givenName: '#firstname',
+            sn: '#lastname',
+            mail: '#email',
+            description: '#description',
+            distinguishedName: '#distinguishedName',
+            memberOf: '#memberOf',
+            whenCreated: '#whenCreated',
+            whenChanged: '#whenChanged',
+            uSNCreated: '#uSNCreated',
+            uSNChanged: '#uSNChanged',
+            badPwdCount: '#badPwdCount'
+        }
+    });
+
+
+{% endblock %}

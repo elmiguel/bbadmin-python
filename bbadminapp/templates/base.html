@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>#}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{% block page_title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {% block html_head_includes %}{% endblock %}
+
+    <link type="text/css" rel="stylesheet" href="../static/css/site.css" />
+    <script src="{{ url_for('static', filename='js/js_common.js') }}"></script>
+</head>
+<body>
+    <header>
+        <nav class="blue accent-4">
+            {# <a href="/" class="brand-logo">Logo</a> #}
+            <ul id="slide-out" class="side-nav">
+                <li><a href="sync_user">Sync User</a></li>
+                <li><a href="sync_ftic">Sync FTIC</a></li>
+                {# <li><a href="dbtables">Bb Admin Tables</a></li> #}
+                <li class="no-padding">
+                    <ul class="collapsible collapsible-accordion">
+                        <li>
+                            <a class="collapsible-header">
+                                {% if current_user.is_authenticated %}
+                                {{ current_user.firstname }}
+                                {% else %}
+                                Guest
+                                {% endif %}
+                                <i class="mdi-navigation-arrow-drop-down"></i>
+                            </a>
+                            <div class="collapsible-body">
+                                <ul>
+                                    {# <li><a href="#!">one</a></li>
+                                    <li><a href="#!">two</a></li> #}
+                                    <li class="divider"></li>
+                                    {% if current_user.is_authenticated %}<li><a href="logout">Logout</a></li>{% endif %}
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="right hide-on-med-and-down">
+                <li><a href="sync_user">Sync User</a></li>
+                <li><a href="sync_ftic">Sync FTIC</a></li>
+                {# <li><a href="dbtables">Bb Admin Tables</a></li> #}
+                <li>
+                    <a class="dropdown-button" href="#!" data-activates="dropdown1">
+                        {% if current_user.is_authenticated %}
+                        {{ current_user.firstname }}
+                        {% else %}
+                        Guest
+                        {% endif %}
+                        <i class="mdi-navigation-arrow-drop-down right"></i>
+                    </a>
+                </li>
+
+                <ul id="dropdown1" class="dropdown-content">
+                    {# <li><a href="#!">one</a></li>
+                    <li><a href="#!">two</a></li> #}
+                    <li class="divider"></li>
+                    {% if current_user.is_authenticated %}<li><a href="logout">Logout</a></li>{% endif %}
+                </ul>
+            </ul>
+            <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <ul class="card-panel {% if messages[0][0] == 'error' %}red{% else %}green{% endif %} lighten-3 z-depth-1">
+                {% for category, message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+
+            {% if error %}
+                <p class="card-panel red"><strong>Error:</strong> {{ error }}
+            {% endif %}
+
+            {% block page_content %}{% endblock %}
+        </div>
+    </main>
+
+
+    <footer class="page-footer grey darken-4">
+      {# <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Whatever</h5>
+            <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+            </ul>
+          </div>
+        </div>
+      </div> #}
+      <div class="footer-copyright">
+        <div class="container">
+        &copy; {{ now.year }} {{company}}
+        {# <a class="grey-text text-lighten-4 right" href="#!">More Links</a> #}
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    {% block js_includes %}{% endblock %}
+    <script type="text/javascript">
+        $( document ).ready(function(){
+            $(".button-collapse").sideNav();
+            $(".dropdown-button").dropdown({
+                hover: false,
+                belowOrigin: true
+            });
+
+            {% block jquery_doc_ready_includes %}{% endblock %}
+        });
+    </script>
+
+</body>
+</html>

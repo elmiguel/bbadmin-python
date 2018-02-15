@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block page_title %}Bb Admin Login{% endblock %}
+{% block html_head_includes %}{% endblock %}
+{% block page_content %}
+    <div class="row">
+        <form class="col s12" id="login" action="login" method="post">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="username" type="text" name="username" class="validate">
+                    <label for="username">Username</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="password" type="password" name="password" class="validate">
+                    <label for="password">Password</label>
+                </div>
+            </div>
+        </form>
+        <button id="submit" form="login" class="btn light-blue darken-3 waves-effect waves-light" type="submit" name="submit">Submit
+            <i class="mdi-content-send right"></i>
+        </button>
+
+        <div id="loader" class="progress hide">
+          <div class="indeterminate"></div>
+        </div>
+    </div>
+{% endblock %}
+{% block jquery_doc_ready_includes %}
+            $('button#submit').click(function(){
+                $('div#loader').removeClass('hide');
+            });
+{% endblock %}
+{% block js_includes %}{% endblock %}

@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% block page_title %}Bb Admin Tool{% endblock %}
+{% block html_head_includes %}
+
+{% endblock %}
+{% block page_content %}
+    <h2 class="header">Database Tables</h2>
+    <ul class="pagination">
+        {% if api_data %}
+            <li class="{% if api_data['page'] == 1 %}disabled{% else %}waves-effect{% endif %}"><a href="#!"><i class="mdi-navigation-chevron-left"></i></a></li>
+            {% for page in range(api_data['total_pages']) %}
+            <li class="{% if api_data['page'] == page + 1 %}active{% else %}waves-effect{% endif %}"><a href="#!" data-page="{{ page + 1 }}">{{ page + 1}}</a></li>
+            {% endfor %}
+            <li class="{% if api_data['page'] == api_data['total_pages'] %}disabled{% else %}waves-effect{% endif %}"><a href="#!"><i class="mdi-navigation-chevron-right"></i></a></li>
+        {% endif %}
+    </ul>
+
+    <table id="users_table" class="hoverable display">
+        <thead>
+            <tr>
+                <th data-field="id">ID</th>
+                <th data-field="pid">PID</th>
+                <th data-field="username">Username</th>
+                <th data-field="firstname">First Name</th>
+                <th data-field="lastname">Last Name</th>
+                <th data-field="email">Email</th>
+                <th data-field="login_method">Login Method</th>
+                <th data-field="pk1">PK1</th>
+                <th data-field="created_at">Created At</th>
+                <th data-field="modified_at">Modified At</th>
+            </tr>
+        </thead>
+    </table>
+
+    <ul class="pagination">
+        {% if api_data %}
+            <li class="{% if api_data['page'] == 1 %}disabled{% else %}waves-effect{% endif %}"><a href="#!" data-page="previous"><i class="mdi-navigation-chevron-left"></i></a></li>
+            {% for page in range(api_data['total_pages']) %}
+            <li class="{% if api_data['page'] == page + 1 %}active{% else %}waves-effect{% endif %}"><a href="#!" data-page="{{ page + 1 }}">{{ page + 1}}</a></li>
+            {% endfor %}
+            <li class="{% if api_data['page'] == api_data['total_pages'] %}disabled{% else %}waves-effect{% endif %}"><a href="#!"  data-page="next"><i class="mdi-navigation-chevron-right"></i></a></li>
+        {% endif %}
+    </ul>
+{% endblock %}
+{% block js_includes %}
+{% endblock %}
+{% block jquery_doc_ready_includes %}
+    var table_data = {};
+    var load_page = null;
+    var current_page = 1;
+
+    var set_table_data = function(){
+        console.log(table_data);
+    };
+
+    var clear_pagination = function(){
+        $('.pagination').each(function(){
+            var li = $(this).find('li.active');
+            li.removeClass('active').addClass('waves-effect');
+        });
+    };
+
+    var set_pagination_page = function(page){
+        load_page = page;
+        clear_pagination();
+
+        $('.pagination li').each(function(){
+            var li = $(this);
+            if (li.hasClass('disabled')){return 0;};
+            if (li.find('a').data('page') == load_page){
+                li.removeClass('waves-effect').addClass('active');
+                current_page = load_page;
+            }
+
+            //set previous or next when applicable
+            if (current_page <= 1){
+                $('.pagination li a[data-page="previous"]').removeClass('waves-effect').addClass('disabled');
+                current_page = 1;
+            } else if (current_page >= $('.pagination li:nth-last-child(2) a').html()) {
+                $('.pagination li a[data-page="next"]').removeClass('waves-effect').addClass('disabled');
+                current_page = $('.pagination li:nth-last-child(2) a').html();
+            } else {
+                $('.pagination li a[data-page="previous"]').removeClass('disabled').addClass('waves-effect');
+                $('.pagination li a[data-page="next"]').removeClass('disabled').addClass('waves-effect');
+            }
+
+        load_api_data();
+        });
+
+    };
+
+    var load_api_data = function(){
+        console.log('load_api_data(): page=', load_page);
+        var api_url = '/api/users?page=' + load_page;
+        $.ajax(api_url).done(function(data){
+            table_data = data;
+            set_table_data();
+        });
+    };
+
+    // bind the li links to process the data loading
+    $('.pagination').on('click', 'li', function(){
+        var $li = $(this);
+        console.log($li);
+        if ($(this).find('a').data('page') == 'previous') {
+           console.log('loading page: ' + (parseInt(current_page) - 1));
+        } else if ($(this).find('a').data('page') == 'next'){
+           console.log('loading page: ' + (parseInt(current_page) + 1));
+        }
+
+        set_pagination_page(parseInt($(this).find('a').data('page')));
+
+    });
+
+
+{% endblock %}
+

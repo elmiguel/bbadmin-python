@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block page_title %}Bb Admin Tool{% endblock %}
+{% block html_head_includes %}
+{% endblock %}
+{% block page_content %}
+    <h2 class="header">Sync FTIC</h2>
+    {% if reference_code %}
+        {{ reference_code }}
+    {% endif %}
+
+{% endblock %}
+{% block js_includes %}
+    <script src="{{ url_for('static', filename='js/pagination.js') }}"></script>
+{% endblock %}
+{% block jquery_doc_ready_includes %}
+{% endblock %}
+

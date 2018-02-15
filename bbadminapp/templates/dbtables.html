@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block page_title %}Bb Admin Tool{% endblock %}
+{% block html_head_includes %}
+{% endblock %}
+{% block page_content %}
+    <h2 class="header">Database Tables</h2>
+    <ul class="pagination"></ul>
+
+    <table id="users_table" class="hoverable display">
+        <thead>
+            <tr>
+                <th data-field="id">ID</th>
+                <th data-field="pid">PID</th>
+                <th data-field="username">Username</th>
+                <th data-field="firstname">First Name</th>
+                <th data-field="lastname">Last Name</th>
+                <th data-field="email">Email</th>
+                <th data-field="login_method">Login Method</th>
+                <th data-field="pk1">PK1</th>
+                <th data-field="created_at">Created At</th>
+                <th data-field="modified_at">Modified At</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+{#    <ul class="pagination"></ul>#}
+{% endblock %}
+{% block js_includes %}
+    <script src="{{ url_for('static', filename='js/pagination.js') }}"></script>
+{% endblock %}
+{% block jquery_doc_ready_includes %}
+    var pagination = $('.pagination').paginator({
+        api_url: '/api/users',
+        pages_to_display: 8,
+        table: $('#users_table')
+    });
+{% endblock %}
+
