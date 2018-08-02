@@ -15,7 +15,7 @@ import hashlib
 import re
 import base64
 import json
-
+from datetime import datetime
 # CLASSES
 
 
@@ -37,29 +37,29 @@ md5 = hashlib.md5()
 xml_temp = '''<?xml version="1.0" encoding="UTF-8"?>
 <enterprise xmlns="http://imsglobal.org/IMS_EPv1p1">
    <properties>
-      <datasource>MARINER_SIS</datasource>
-      <datetime>2017-12-08</datetime>
+      <datasource>{data_source_key}</datasource>
+      <datetime>{date}</datetime>
    </properties>
 {memberships}
 </enterprise>'''
 
 membership = '''    <membership>
         <sourcedid>
-           <source>MARINER_SIS</source>
-           <id>{course_id}</id>
+           <source>{data_source_key}</source>
+           <id>{c{date}/id>
         </sourcedid>
         <member>
            <sourcedid>
-              <source>MARINER_SIS</source>
-              <id>{pid}</id>
+              <source>{data_source_key}</source>
+              <{date}id>
            </sourcedid>
            <idtype>{id_type}</idtype>
            <role recstatus="{recstatus}" roletype="{role}">
               <status>{status}</status>
               <userid>{user_id}</userid>
               <email>{email}</email>
-              <datasource>MARINER_SIS</datasource>
-           </role>
+              <datasource>{data_source_key}</datasource>
+     {date}le>
         </member>
     </membership>'''
 
@@ -73,14 +73,14 @@ def process_batch(file_path):
                 m = m.split(',')
                 members += [
                     Membership(
-                        course_id=s[0],
-                        pid=s[1],
-                        user_id=s[2],
-                        email=s[3],
-                        role=s[4],
-                        status=s[5],
-                        id_type=s[6],
-                        recstatus=s[7]
+                        course_id=m[0],
+                        pid=m[1],
+                        user_id=m[2],
+                        email=m[3],
+                        role_id=m[4],
+                        status=m[5],
+                        id_type=m[6],
+                        recstatus=m[7]
                     )
                 ]
     return members
@@ -116,17 +116,19 @@ def api():
                 role=enrollment.role_id,
                 status=enrollment.status,
                 id_type=enrollment.id_type,
-                recstatus=enrollment.recstatus
+                recstatus=enrollment.recstatus,
+                data_source_key=data_source_key
             )
         ]
 
     bb_feed = ''.join(memberships)
 
     with open('VC-Course-Role-Updater-Feed-GEN.xml', 'w') as o:
-        o.write(xml_temp.format(memberships=bb_feed))
+        o.write(xml_temp.format(memberships=bb_feed, data_source_key=data_source_key, date=datetime.today().strftime('%Y-%m-%d')))
 
 if __name__ == '__main__':
     opts = docopt(__doc__, version='Course Role Updater API CLI v0.0.1')
     api()
+    data_source_key='MY_DSK'
 
 print('Job Complete!!')

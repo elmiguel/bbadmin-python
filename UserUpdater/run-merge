@@ -6,9 +6,9 @@ if [ ! -f $1 ]; then
 	exit 1;
 fi
 /usr/local/bin/python3.5 merge-student-updater.py batch $1
-echo "MERGE-Student-Update-Feed-GEN.xml created!"
+echo "./exports/MERGE-Student-Update-Feed-GEN.xml created!"
 echo "Sending feed file to Blackboard..."
-curl -k -w %{http_code} -H "Content-Type:text/xml" -u '109ba5f9-c792-47bb-8933-7be1869a3e8d:R!verN@T3209!#' --data-binary @MERGE-Student-Update-Feed-GEN.xml https://irsc.blackboard.com/webapps/bb-data-integration-ims-xml-BBLEARN/endpoint
+curl -k -w %{http_code} -H "Content-Type:text/xml" -u '<SIS_USER>:<SIS_PASS>' --data-binary @./exports/MERGE-Student-Update-Feed-GEN.xml https://irsc.blackboard.com/webapps/bb-data-integration-ims-xml-BBLEARN/endpoint
 echo "Feed file sent."
 echo "Job Complete!"
 echo ""

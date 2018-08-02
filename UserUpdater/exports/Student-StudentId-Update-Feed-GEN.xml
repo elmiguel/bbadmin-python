@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<enterprise xmlns="http://imsglobal.org/IMS_EPv1p1">
+   <properties>
+      <datasource>demo_dsk</datasource>
+      <datetime>2017-01-19</datetime>
+   </properties>
+
+   <person>
+      <sourcedid>
+         <source>demo_dsk</source>
+         <id>s1</id>
+      </sourcedid>
+      <userid>s1</userid>
+      <name>
+         <fn>Bruce Wyane</fn>
+         <n>
+            <family>Wyane</family>
+            <given>Bruce</given>
+         </n>
+      </name>
+      <email>s1@col.edu</email>
+      <datasource>demo_dsk</datasource>
+      <extension>
+        <ns0:WEBCREDENTIALS xmlns:ns0="http://www.webct.com/IMS">{md5}1234</ns0:WEBCREDENTIALS>
+        <ns1:transactionType xmlns:ns1="http://www.irsc.edu">STDNT</ns1:transactionType>
+        <ns2:studentId xmlns:ns2="http://www.irsc.edu">s1</ns2:studentId>
+      </extension>
+   </person>
+   <person>
+      <sourcedid>
+         <source>demo_dsk</source>
+         <id>s2</id>
+      </sourcedid>
+      <userid>s2</userid>
+      <name>
+         <fn>Barry Allen</fn>
+         <n>
+            <family>Allen</family>
+            <given>Barry</given>
+         </n>
+      </name>
+      <email>s2@col.edu</email>
+      <datasource>demo_dsk</datasource>
+      <extension>
+        <ns0:WEBCREDENTIALS xmlns:ns0="http://www.webct.com/IMS">{md5}1234</ns0:WEBCREDENTIALS>
+        <ns1:transactionType xmlns:ns1="http://www.irsc.edu">STDNT</ns1:transactionType>
+        <ns2:studentId xmlns:ns2="http://www.irsc.edu">s2</ns2:studentId>
+      </extension>
+   </person>
+   <person>
+      <sourcedid>
+         <source>demo_dsk</source>
+         <id>s3</id>
+      </sourcedid>
+      <userid>s3</userid>
+      <name>
+         <fn>Jessica Jones</fn>
+         <n>
+            <family>Jones</family>
+            <given>Jessica</given>
+         </n>
+      </name>
+      <email>s3@col.edu</email>
+      <datasource>demo_dsk</datasource>
+      <extension>
+        <ns0:WEBCREDENTIALS xmlns:ns0="http://www.webct.com/IMS">{md5}1234</ns0:WEBCREDENTIALS>
+        <ns1:transactionType xmlns:ns1="http://www.irsc.edu">STDNT</ns1:transactionType>
+        <ns2:studentId xmlns:ns2="http://www.irsc.edu">s3</ns2:studentId>
+      </extension>
+   </person>
+   <person>
+      <sourcedid>
+         <source>demo_dsk</source>
+         <id>s4</id>
+      </sourcedid>
+      <userid>s4</userid>
+      <name>
+         <fn>Tony Stark</fn>
+         <n>
+            <family>Stark</family>
+            <given>Tony</given>
+         </n>
+      </name>
+      <email>s4@col.edu</email>
+      <datasource>demo_dsk</datasource>
+      <extension>
+        <ns0:WEBCREDENTIALS xmlns:ns0="http://www.webct.com/IMS">{md5}1234</ns0:WEBCREDENTIALS>
+        <ns1:transactionType xmlns:ns1="http://www.irsc.edu">STDNT</ns1:transactionType>
+        <ns2:studentId xmlns:ns2="http://www.irsc.edu">s4</ns2:studentId>
+      </extension>
+   </person>
+</enterprise>

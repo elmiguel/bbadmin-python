@@ -4,7 +4,7 @@ from sqlalchemy.engine import create_engine
 import re
 import base64
 import sys
-
+from datetime import datetime
 curl = '''
 curl -k -w %{http_code} -H "Content-Type:text/xml" -u '<SIS_XML_INT_USER>:<SIS_XML_INT_PASS>' --data-binary @FTIC-Student-Update-Feed-GEN.xml https://irsc.blackboard.com/webapps/bb-data-integration-ims-xml-BBLEARN/endpoint
 '''
@@ -46,8 +46,8 @@ md5 = hashlib.md5()
 xml_temp = '''<?xml version="1.0" encoding="UTF-8"?>
 <enterprise xmlns="http://imsglobal.org/IMS_EPv1p1">
    <properties>
-      <datasource>MARINER_SIS</datasource>
-      <datetime>2018-01-23</datetime>
+      <datasource>{data_source_key}</datasource>
+      <datetime>{date}</datetime>
    </properties>
 {people}
 </enterprise>'''
@@ -55,7 +55,7 @@ xml_temp = '''<?xml version="1.0" encoding="UTF-8"?>
 person = '''
    <person>
       <sourcedid>
-         <source>MARINER_SIS</source>
+         <source>{data_source_key}</source>
          <id>{user_id}</id>
       </sourcedid>
       <userid>{user_id}</userid>
@@ -67,7 +67,7 @@ person = '''
          </n>
       </name>
       <email>{email}</email>
-      <datasource>MARINER_SIS</datasource>
+      <datasource>{data_source_key}</datasource>
       <extension>
         <ns0:WEBCREDENTIALS xmlns:ns0="http://www.webct.com/IMS">{md5}{password}</ns0:WEBCREDENTIALS>
         <ns1:transactionType xmlns:ns1="http://www.irsc.edu">STDNT</ns1:transactionType>
@@ -79,32 +79,8 @@ debug = False
 essqlEngine = create_engine('mssql+pyodbc://<SQL_USER>:<SQL_PASS>@<SQL_INSTANCE>', echo=debug)
 esConn = essqlEngine.connect()
 sql = """
-select  
-    et.user_id external_person_key,
-    et.user_id,
-    first_name firstname,
-    last_name lastname,
-    password passwd,
-    email_inst as email,
-    replace(
-        replace('('+ isnull(convert(varchar(2), ed.cohort),'')
-        + isnull(ed.pgrad, '')
-        + ')-' + et.user_id, ' ', '')
-        ,'()-', '')
-    as student_id,
-    'MARINER_SIS' data_source_key
-from elearning_trans et,
-     elearning_designators ed,
-    (select
-         user_id,
-        max(record_seq) as max_record
-     from elearning_trans
-     where user_id !='TBA'
-     and user_id not like '[0-9]%'
-     group by user_id
-     ) ms
-where et.user_id=ed.studentid
-and ms.max_record=et.record_seq
+...query to getdb result set...
+... alias the columns or modify the code below to assign the data...
 """
 
 # print(sql)
@@ -113,6 +89,7 @@ ftic = esConn.execute(sql)
 
 people = []
 
+# from your SQL, have the your columns aliased to these or modify the code accordingly
 for student in ftic:
     external_person_key = student.external_person_key
     user_id = student.user_id
@@ -139,9 +116,6 @@ esConn.close()
 
 bb_feed = ''.join(people)
 
-# with open('Student-Update-Feed-GEN-New.xml', 'w') as o:
-#     o.write(xml_temp.format(people=bb_feed))
-
-send_bb_feed_file(xml_temp.format(people=bb_feed))
+send_bb_feed_file(xml_temp.format(people=bb_feed, data_source_key='MY_DSK', date=datetime.today().strftime('%Y-%m-%d')))
 print('People Processed:', len(people))
 print('Job Complete!!')

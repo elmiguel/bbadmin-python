@@ -1,2 +1,0 @@
-external_course_key|course_id|course_name|data_source_key|template_course_key
-DEV-ENC1101-DEPT|DEV-ENC1101-DEPT|Development - ENC1101 - Department|DEV_Shells|IRSC-DEVSHELL-TEMPLATE

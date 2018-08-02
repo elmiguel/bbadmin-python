@@ -2,13 +2,14 @@ import hashlib
 import base64
 import sys
 import csv
+from datetime import datetime
 md5 = hashlib.md5()
 
 xml_temp = '''<?xml version="1.0" encoding="UTF-8"?>
 <enterprise xmlns="http://imsglobal.org/IMS_EPv1p1">
    <properties>
-      <datasource>MARINER_SIS</datasource>
-      <datetime>2017-01-19</datetime>
+      <datasource>{data_source_key}</datasource>
+      <datetime>{date}</datetime>
    </properties>
 {people}
 </enterprise>'''
@@ -16,7 +17,7 @@ xml_temp = '''<?xml version="1.0" encoding="UTF-8"?>
 person = '''
    <person>
       <sourcedid>
-         <source>MARINER_SIS</source>
+         <source>{data_source_key}</source>
          <id>{user_id}</id>
       </sourcedid>
       <userid>{user_id}</userid>
@@ -28,7 +29,7 @@ person = '''
          </n>
       </name>
       <email>{email}</email>
-      <datasource>MARINER_SIS</datasource>
+      <datasource>{data_source_key}</datasource>
       <extension>
         <ns0:WEBCREDENTIALS xmlns:ns0="http://www.webct.com/IMS">{md5}{password}</ns0:WEBCREDENTIALS>
         <ns1:transactionType xmlns:ns1="http://www.irsc.edu">STDNT</ns1:transactionType>
@@ -39,7 +40,7 @@ person = '''
 
 people = []
 
-with open('./StudentID-Cohort-Leftovers.csv') as f:
+with open('./imports/studentId-feed-file-template.csv') as f:
     _ftic = csv.DictReader(f, skipinitialspace=True, quotechar='`', delimiter='|')
 
     for v in _ftic:
@@ -61,7 +62,8 @@ with open('./StudentID-Cohort-Leftovers.csv') as f:
                 last=lastname,
                 email=email,
                 md5='{md5}',
-                password=password
+                password=password,
+                data_source_key=data_source_key
             )
         ]
 # print(people)
@@ -73,8 +75,8 @@ bb_feed = ''.join(people)
 print('People Processed: ', len(people))
 # print(bb_feed)
 # sys.exit(1)
-with open('Student-StudentId-Update-Feed-GEN.xml', 'w') as o:
-    o.write(xml_temp.format(people=bb_feed))
+with open('./exports/Student-StudentId-Update-Feed-GEN.xml', 'w') as o:
+    o.write(xml_temp.format(people=bb_feed, data_source_key='MY_DSK', date=datetime.today().strftime('%Y-%m-%d')))
 
 # send_bb_feed_file(bb_feed)
 

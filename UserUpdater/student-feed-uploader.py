@@ -35,7 +35,7 @@ def send_bb_feed_file(bb_feed):
     # h.add_credentials(bb_user, bb_pass)
     resp, content = h.request(bb_endpoint,
                               "POST",
-                              body=xml_temp.format(people=bb_feed),
+                              body = bb_feed,
                               headers={
                                   "Authorization": "Basic %s" % auth,
                                   "Content-Type": "text/html",

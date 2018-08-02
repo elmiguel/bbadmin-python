@@ -1,4 +1,3 @@
-# My project's README
+# BbAdmin Python CLIs and Scripts
 
-# [Blackboard REST API with python](https://github.com/elmiguel/BBDN-REST-DEMO_Python)
-
+A collection of CLIs, scripts, and web app I have created over the years for Blackboard Learn tasks.

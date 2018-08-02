@@ -1,0 +1,5 @@
+external_person_key|lastname|user_id|firstname|passwd|email|student_id|data_source_key
+s1|Wyane|s1|Bruce|1234|s1@col.edu|s1|demo_dsk
+s2|Allen|s2|Barry|1234|s2@col.edu|s2|demo_dsk
+s3|Jones|s3|Jessica|1234|s3@col.edu|s3|demo_dsk
+s4|Stark|s4|Tony|1234|s4@col.edu|s4|demo_dsk

@@ -1,13 +1,23 @@
 """MERGE Student Updater
 
 Usage:
-    merge-student-updater single OLD-ID NEW-ID FIRST-NAME LAST-NAME EMAIL PASSWORD [options]
+    merge-student-updater single OLD-ID NEW-ID FIRST-NAME LAST-NAME EMAIL PASSWORD [DSK] [options]
     merge-student-updater batch FILE [options]
 
-Options:
-    -h, --help                      Show this screen.
-    -v, --verbose                   Verbose mode.
+Commands:
+    DSK       Add a data source key. [default: MERGE_STUDENT_UPDATER]
 
+Options:
+    -h, --help      Show this screen.
+    -v, --verbose   Verbose mode.
+
+Examples:
+    single with defualt DSK
+        python merge-student-updater.py single S12345678 S87654321 Some Person sperson@coll.edu 12345
+    single with custom DSK
+        python merge-student-updater.py single S12345678 S87654321 Some Person sperson@coll.edu 12345 MY_DSK
+
+        
 """
 from docopt import docopt
 import sys
@@ -15,6 +25,7 @@ import hashlib
 import re
 import base64
 import json
+from datetime import datetime
 
 # CLASSES
 class Person:
@@ -32,8 +43,8 @@ md5 = hashlib.md5()
 xml_temp = '''<?xml version="1.0" encoding="UTF-8"?>
 <enterprise xmlns="http://imsglobal.org/IMS_EPv1p1">
    <properties>
-      <datasource>MARINER_SIS</datasource>
-      <datetime>2017-04-19</datetime>
+      <datasource>{data_source_key}</datasource>
+      <datetime>{date}</datetime>
    </properties>
 {people}
 </enterprise>'''
@@ -41,11 +52,11 @@ xml_temp = '''<?xml version="1.0" encoding="UTF-8"?>
 person = '''
    <person>
       <sourcedid>
-         <source>MARINER_SIS</source>
+         <source>{data_source_key}</source>
          <id>{user_id}</id>
       </sourcedid>
       <sourcedid>
-         <source>MARINER_SIS</source>
+         <source>{data_source_key}</source>
          <id>{new_user_id}</id>
       </sourcedid>
       <userid>{new_user_id}</userid>
@@ -57,7 +68,7 @@ person = '''
          </n>
       </name>
       <email>{email}</email>
-      <datasource>MARINER_SIS</datasource>
+      <datasource>{data_source_key}</datasource>
       <extension>
         <ns0:WEBCREDENTIALS xmlns:ns0="http://www.webct.com/IMS">{md5}{password}</ns0:WEBCREDENTIALS>
         <ns1:transactionType xmlns:ns1="http://www.irsc.edu">STDNT</ns1:transactionType>
@@ -109,29 +120,35 @@ def api():
         password = hashlib.md5(student.password.encode('utf-16le')).hexdigest().upper()
         email = student.email
         student_id = student.new_id
-        data_source_key = 'MARINER_SIS'
         # print(external_person_key,user_id,firstname,lastname,email,student_id,password,data_source_key)
         people += [
             person.format(
                 user_id=external_person_key,
                 new_user_id=user_id,
-                student_id=user_id,
+                student_id=student_id,
                 fullname=firstname + ' ' + lastname,
                 first=firstname,
                 last=lastname,
                 email=email,
                 md5='{md5}',
-                password=password
+                password=password,
+                data_source_key=data_source_key
             )
         ]
 
     bb_feed = ''.join(people)
 
-    with open('MERGE-Student-Update-Feed-GEN.xml', 'w') as o:
-        o.write(xml_temp.format(people=bb_feed))
+    with open('./exports/MERGE-Student-Update-Feed-GEN.xml', 'w') as o:
+        o.write(xml_temp.format(people=bb_feed, data_source_key=data_source_key, date=datetime.today().strftime('%Y-%m-%d')))
+        # o.write(xml_temp.format(people=bb_feed))
 
 if __name__ == '__main__':
     opts = docopt(__doc__, version='MERGE Student Updater API CLI v0.0.1')
+    
+    print(opts)
+    
+    
+    data_source_key = opts['DSK'] or 'MERGE_STUDENT_UPDATER'
+    
     api()
-
-print('Job Complete!!')
+    print('Job Complete!!')
