@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask.ext.login import UserMixin
+from flask_login import UserMixin
 from BbAdminApp import db
 import bcrypt
 

@@ -35,11 +35,11 @@ from models import *
 api_manager = APIManager(app,
                          flask_sqlalchemy_db=db,
                          preprocessors=dict(
-                                              # GET=[auth_func], GET_SINGLE=[auth_func], GET_MANY=[auth_func],
-                                              POST=[auth_func], POST_SINGLE=[auth_func], POST_MANY=[auth_func],
-                                              PATCH=[auth_func], PATCH_SINGLE=[auth_func], PATCH_MANY=[auth_func],
-                                              DELETE=[auth_func], DELETE_SINGLE=[auth_func], DELETE_MANY=[auth_func])
-                         )
+                                            # GET=[auth_func], GET_SINGLE=[auth_func], GET_MANY=[auth_func],
+                                            POST=[auth_func], POST_SINGLE=[auth_func], POST_MANY=[auth_func],
+                                            PATCH=[auth_func], PATCH_SINGLE=[auth_func], PATCH_MANY=[auth_func],
+                                            DELETE=[auth_func], DELETE_SINGLE=[auth_func], DELETE_MANY=[auth_func])
+                        )
 
 api_manager.create_api(User,
                        methods=['GET', 'POST', 'PATCH', 'DELETE'],

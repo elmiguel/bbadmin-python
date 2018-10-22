@@ -4,7 +4,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 # App Settings
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'bba_app.db')
 SQLALCHEMY_TRACK_MODIFICATIONS=True
-ESSQL2_DATABASE_URI = 'mssql+pyodbc://<SQL_USER>:<SQL_PASS>@<SQL_INSTANCE>'
+ESSQL2_DATABASE_URI = 'mssql+pypyodbc://<SQL_USER>:<SQL_PASS>@<SQL_INSTANCE>'
 APPLICATION_ROOT = basedir
 TEMPLATE_FOLDER = os.path.join(basedir, '/templates')
 SECRET_KEY = '<SECRET_KEY>' # of your choosing
